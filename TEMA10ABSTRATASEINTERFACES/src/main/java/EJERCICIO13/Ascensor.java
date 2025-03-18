@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+El ascensor tiene una planta en la que se encuentra,
+pudiendo ser desde 0 a 8. La planta inicial es la cero. 
  */
 package EJERCICIO13;
 
@@ -8,6 +8,6 @@ package EJERCICIO13;
  *
  * @author silvia
  */
-public class Ascensor {
-    
+public class Ascensor implements Domotica{
+    private int plantaActual;//0-8, inicial 0
 }
