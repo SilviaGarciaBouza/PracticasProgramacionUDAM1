@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author silvia
  */
-public class Delfin_v2 implements Nadador{
+public class Delfin_v2 implements Nadador_v2{
 
     @Override
     public double nadar(int metros) {

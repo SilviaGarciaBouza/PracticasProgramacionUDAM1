@@ -1,12 +1,14 @@
 /*
-• Realiza un programa sencillo que cree instancias de delfines, ballenas azules y triatletas y
-use los métodos desarrollados.
-
-Empleando las tres clases definidas en el ejercicio anterior (Delfín, BallenaAzul y TriAtleta) y la
-interfaz Nadador, realiza un programa que contenga un ArrayList de nadadores (polimorfismo de
-interfaces) con tres elementos, uno de cada tipo, esto es un Delfín, una BallenaAzul y un TriAtleta.
-A continuación, recorre el ArrayList con un bucle for…each, mostrando cuánto tarda cada uno de
-ellos en recorrer un kilómetro. 
+. Duplica las interfaces y las clases del ejercicio anterior (añadiéndoles el sufijo _v2) Modifica la
+interfaz Saltador_v2 añadiéndole el método saltaPertiga que recibe como parámetro una altura en
+centímetros y devuelve true si ha logrado el salto y false si no lo ha logrado ¿Qué ocurre con la clase
+TriAtleta_v2? Desarrolla saltaPertiga como método default en la interfaz de forma que por defecto
+devuelva false.
+• Haz una nueva versión de TriAtleta (sufijo _v2b) que implemente saltaPertiga con este
+criterio: para saltos de más de 6 metros devuelve false, entre 5 y 6 metros devuelve true la
+mitad de las veces y por debajo de 5 metros devuelve siempre true.
+• Haz un programa que cree una instancia de Triatleta_v2 y otra de Triatleta_v2b y que
+muestre el resultado de ambos atletas saltando: 100cm, 550cm, 560cm, 580cm, 700cm. 
 */
 package EJERCICIO11;
 
@@ -26,23 +28,11 @@ public class DeporteMain_v2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Delfin delfin1= new Delfin();
-        BallenaAzul ballena1= new BallenaAzul(4);
-        Triatleta triatleta1= new Triatleta();
-        System.out.println(delfin1.nadar(4)); 
-        System.out.println(triatleta1.nadar(4)); 
-        System.out.println( ballena1.nadar(4));
-        System.out.println("--------------------------------");
-        //Ej10:
-    ArrayList<Nadador> listaNadadores= new ArrayList<>();
-    listaNadadores.add(delfin1);
-    listaNadadores.add(ballena1);
-    listaNadadores.add(triatleta1);
-    for(Nadador elemento : listaNadadores){
-        System.out.println(elemento.nadar(5));
-    }
-        
-        
+      Triatleta_v2 triatleta1= new Triatleta_v2();
+        System.out.println(triatleta1.saltaPertiga(100));
+         System.out.println(triatleta1.saltaPertiga(550));
+          System.out.println(triatleta1.saltaPertiga(560));
+           System.out.println(triatleta1.saltaPertiga(700));
    }
     
 }

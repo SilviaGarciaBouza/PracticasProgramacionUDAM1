@@ -1,12 +1,8 @@
 /*
- y por último otra interfaz llamada Saltador con un método
-saltarAltura que no recibe parámetros y que devuelve los centímetros saltados.
-
-
-• Desarrolla una clase Delfin que implemente la interfaz Nadador. El tiempo en recorrer una
-distancia es aleatorio entre 40km/h y 70km/hora
-• Desarrolla una clase BallenaAzul que implemente la interfaz Nadador. El tiempo en recorrer
-una distancia es de 10km/h para las mayores de 5 años y 13km/h para las menores.
+interfaz Saltador_v2 añadiéndole el método saltaPertiga que recibe como parámetro una altura en
+centímetros y devuelve true si ha logrado el salto y false si no lo ha logrado ¿Qué ocurre con la clase
+TriAtleta_v2? Desarrolla saltaPertiga como método default en la interfaz de forma que por defecto
+devuelva false.
  */
 package EJERCICIO11;
 
@@ -18,6 +14,10 @@ import java.util.Random;
  */
 public interface Saltador_v2 {
     int saltarAltura();//devuelve cm saltados
+    default boolean saltaPertiga(int alturaCM){
+//devuelve true si ha logrado el salto
+return false;
+    }
 }
 
 
