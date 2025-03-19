@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class M00MENU {
 
-    public static void main(String[] args) {
+é
         menu();
     }
     

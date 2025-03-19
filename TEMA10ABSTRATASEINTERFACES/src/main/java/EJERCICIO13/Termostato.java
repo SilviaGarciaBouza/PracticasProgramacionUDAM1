@@ -28,6 +28,54 @@ import java.time.LocalDate;
 public class Termostato implements Domotica{
     private LocalDate fechaUltimaRevision;
     private int gradosCentigrados;//min 15, max 80 inicial 20
+
+    public Termostato() {
+        this.gradosCentigrados = 20;
+    }
+    
+    @Override
+    public boolean subir() {
+        if(gradosCentigrados<80){
+            gradosCentigrados+=1;
+            return true;
+        }
+        return false;
+        
+    }
+
+    @Override
+    public boolean bajar() {
+        
+         if(gradosCentigrados>15){
+            gradosCentigrados-=1;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void reset() {
+        gradosCentigrados=20;
+    }
+
+    @Override
+    public String verEstado() {
+        return "termostato "+gradosCentigrados;
+    }
+
+    @Override
+   
+    public void revisar() {
+        fechaUltimaRevision= LocalDate.now();
+    
+    }
+
+    @Override
+    public String toString() {
+        return "Termostato{" + '}';
+    }
+    
+    
     
     
 }
