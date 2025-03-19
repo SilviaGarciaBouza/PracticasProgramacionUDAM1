@@ -12,9 +12,8 @@ import java.util.Scanner;
  */
 public class M00MENU {
 
-é
-        menu();
-    }
+
+      
     
     
     
@@ -50,7 +49,7 @@ public class M00MENU {
         System.out.println("Has salido del programa!");
     } 
     
-    
+}
    
     
-}
+
