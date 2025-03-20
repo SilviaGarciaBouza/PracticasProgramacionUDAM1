@@ -28,12 +28,77 @@ static String concatenarCadenas(List<String> palabras) {...}
 Ejemplo de entrada: List<String> palabras = List.of("manzana",
 "pera", "uva");
 Salida esperada: "manzana, pera, uva"
+
+5. Ejercicio de examen pero con Streams
+Dada una List<Integer>, hacer un método que imprima por pantalla los
+números que están repetidos, indicando el número de veces que se repiten.
+static void numerosRepetidos(List<Integer> numeros) {...}
+Ejemplo de entrada:
+List<Integer> numeros = List.of(0, 0, 1, 1, 1, 2);
+Salida esperada:
+0 se repite 2 veces
+1 se repite 3 veces
+
+6. Gestión de Empleados
+Dada la siguiente clase Empleado, que representa trabajadores con un
+nombre, edad, salario y departamento:
+class Empleado {
+private String nombre;
+private int edad;
+private double salario;
+private String departamento;
+public Empleado(String nombre, int edad, double salario,
+String departamento) {
+this.nombre = nombre;
+this.edad = edad;
+this.salario = salario;
+this.departamento = departamento;
+}
+public String getNombre() {return nombre;}
+public int getEdad() {return edad;}
+public double getSalario() {return salario;}
+public String getDepartamento() {return departamento;}
+@Override
+public String toString() {
+return nombre + " (" + edad + " años, " + departamento +
+", " + salario + "€)";
+}
+}
+
+Implementa los siguientes métodos usando Streams:
+a) Obtener la lista de empleados con salario superior a un umbral dado,
+ordenados de mayor a menor salario.
+b) Agrupar los empleados por departamento y devolver un Map<String,
+List<Empleado>>.
+c) Calcular el salario promedio de los empleados mayores de una edad
+determinada.
+Ejemplo de entrada:
+List<Empleado> lista = List.of(
+new Empleado("Juan", 25, 2500.0, "Ventas"),
+new Empleado("Ana", 32, 3200.0, "IT"),
+new Empleado("Pedro", 45, 5000.0, "IT"),
+new Empleado("Marta", 29, 2700.0, "Ventas"),
+new Empleado("Luis", 38, 4000.0, "Recursos Humanos")
+);
+Salida esperada:
+empleadosConSalarioMayorA(lista, 3000);
+// [Pedro (45 años, IT, 5000.0€), Luis (38 años, Recursos
+Humanos, 4000.0€), Ana (32 años, IT, 3200.0€)]
+agruparPorDepartamento(lista);
+// {Ventas=[Juan, Marta], IT=[Ana, Pedro], Recursos
+Humanos=[Luis]}
+salarioPromedioMayoresDe(lista, 30);
+// OptionalDouble[4066.6666666666665]
+// (3200 + 5000 + 4000) / 3
  */
 package com.strims;
 
 import com.sun.jdi.DoubleValue;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalDouble;
 
 import java.util.stream.Collectors;
@@ -54,11 +119,19 @@ public class STREAMS {
         //EJ3
         List<Double> listaDoubles = List.of(10.5, 20.0, 30.5);
         System.out.println(imprimirPromedio(listaDoubles));
+        //EJ4
+        List<String> palabras = List.of("manzana",
+                "pera", "uva");
+        System.out.println(imprimirCadenaUnica(palabras));
+        //EJ5
+        List<Integer> listaEnteros = List.of(0, 0, 1, 1, 1, 2);
+        imprimirRepetidos(listaEnteros);
+        //EJ6
 
     }
 
     //EJ1
-    static List<Integer> imprimirNewList(List<Integer> listaNumeros) {
+    static public List<Integer> imprimirNewList(List<Integer> listaNumeros) {
         return listaNumeros.stream()
                 .filter(n -> n % 2 == 0)
                 .map(m -> m * 2)
@@ -66,7 +139,7 @@ public class STREAMS {
     }
 
     //EJ2
-    static int imprimirInt(int[] numeros) {
+    static public int imprimirInt(int[] numeros) {
         return Arrays.stream(numeros)
                 .filter(n -> n % 2 != 0)
                 .map(m -> m * m)
@@ -74,9 +147,78 @@ public class STREAMS {
     }
 
     //EJ3
-    static OptionalDouble imprimirPromedio(List<Double> listaDoubles) {
+    static public OptionalDouble imprimirPromedio(List<Double> listaDoubles) {
         return listaDoubles.stream()
                 .mapToDouble(d -> d.doubleValue())
                 .average();
+    }
+
+    //EJ4
+    static public String imprimirCadenaUnica(List<String> palabras) {
+        return palabras.stream()
+                .collect(Collectors.joining(", "));
+    }
+
+    //EJ5
+    static public void imprimirRepetidos(List<Integer> listaEnteros) {
+        listaEnteros.stream()
+                .distinct()
+                .filter(n -> Collections.frequency(listaEnteros, n) > 1)
+                .forEach(n -> System.out.println(n + " se repite " + Collections.frequency(listaEnteros, n) + " veces"));
+    }
+
+    //EJ6
+    static public List<Empleado> filtarPorSalario(List<Empleado> listaEmpleados, double salarioUmbral) {
+        return listaEmpleados.stream()
+                .filter(n -> n.getSalario() > salarioUmbral)
+                .sorted(Comparator.comparingDouble(Empleado::getSalario).reversed())
+                .toList();
+    
+    }
+    
+    static public Map<String,List<Empleado>> agruparPorDepartamento(List<Empleado> listaEmpleados){
+        listaEmpleados.stream()
+                .map(n->n.getDepartamento()+n)
+                .;
+    }
+
+}
+
+//EJ6
+class Empleado {
+
+    private String nombre;
+    private int edad;
+    private double salario;
+    private String departamento;
+
+    public Empleado(String nombre, int edad, double salario,
+            String departamento) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.salario = salario;
+        this.departamento = departamento;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + edad + " años, " + departamento
+                + ", " + salario + "€)";
     }
 }
