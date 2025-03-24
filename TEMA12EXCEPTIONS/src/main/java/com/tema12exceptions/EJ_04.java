@@ -29,16 +29,16 @@ public class EJ_04 {
         //System.out.println(Arrays.toString(temperaturasmedias));
         try {
             posiciones = introducirDatos(temperaturasmedias);
+            pos1 = posiciones[0];
+            pos2 = posiciones[1];
+            media = calcularMedia(pos1, pos2, temperaturasmedias);
         } catch (RangoExcepcion ex) {
             System.out.println("Error: " + ex.getMessage());
+            media = 0;
+        }finally{
+            System.out.println("La media es: " + media);
         }
         //System.out.println(Arrays.toString(posiciones));
-        pos1 = posiciones[0];
-        pos2 = posiciones[1];
-
-        media = calcularMedia(pos1, pos2, temperaturasmedias);
-
-        System.out.println("La media es: " + media);
 
     }
 
@@ -96,7 +96,6 @@ public class EJ_04 {
 
     }
 }
-
 
 //public class EJ04 {
 //

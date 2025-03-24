@@ -10,6 +10,7 @@ válidos, capturará esa excepción. Así pues, habrá un try…catch en el main
  */
 package com.tema12exceptions;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeParseException;
@@ -26,7 +27,7 @@ public class EJ_05 {
      */
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        int dia, mes, año;
+        int dia=0, mes=0, año=0;
         try{
         System.out.println("Vamos a escribir una fecha:");
         System.out.println("Escribe un numero etero para el dia: ");
@@ -38,16 +39,23 @@ public class EJ_05 {
         }catch(NumberFormatException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+        System.out.println("La fecha es correcta: "+validadFecha(dia, mes, año));
     }
     
-    static public LocalDate validadFecha(int dia, int mes, int año){
+    static public boolean validadFecha(int dia, int mes, int año){
          LocalDate fecha=LocalDate.now();
+         boolean esCorrecto;
         try{
          fecha = LocalDate.of(año,mes,dia);
+         esCorrecto=true;
         }catch(DateTimeParseException ex){
+            esCorrecto=false;
+             System.out.println("Error: "+ex.getMessage());
+        }catch(DateTimeException ex){
+            esCorrecto=false;
              System.out.println("Error: "+ex.getMessage());
         }
-        return fecha;
+        return esCorrecto;
     }
 
 }

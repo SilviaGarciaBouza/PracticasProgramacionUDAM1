@@ -25,7 +25,7 @@ import java.util.Scanner;
  *
  * @author silvia
  */
-public class EJ_01 {
+public class EJ_01_V2 {
 
     static public int resultado;
 
@@ -37,22 +37,18 @@ public class EJ_01 {
         numero1 = Integer.parseInt(teclado.nextLine());
         System.out.println("Escribe un segundo numero etero (denominador): ");
         numero2 = Integer.parseInt(teclado.nextLine());
+        try{
         resultado = dividir(numero1, numero2);
+        }catch(ArithmeticException ex){
+            System.out.println("Error: "+ex.getMessage()); 
+           
+        }
         System.out.println("Resultado de la division: " + resultado);
-        //Division de double /0 da resultado infinity:
-//        double suma = 0.2 / 0d;
-//        System.out.println(suma);
     }
 
-    static public int dividir(int numero1, int numero2) {
-        try {
+    static public int dividir(int numero1, int numero2) {     
             resultado = numero1 / numero2;
-        } catch (ArithmeticException ex) {
-            System.out.println("Error: "+ex.getMessage());
-            resultado = 0;
-        } finally {
             return resultado;
-        }
     }
     
 }

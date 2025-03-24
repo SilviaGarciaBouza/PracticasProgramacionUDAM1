@@ -27,11 +27,10 @@ public class EJ_08 {
             System.out.println("Escribe un email: ");
             email = scanner.nextLine();
             validarCadena(email);
-             System.out.println("Email valido!");
+            System.out.println("Email valido!");
         } catch (FormatoExcepcion ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-       
 
     }
 
