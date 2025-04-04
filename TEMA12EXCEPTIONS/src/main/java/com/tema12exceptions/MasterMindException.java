@@ -1,6 +1,19 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+Modificar la clase MasterMindExcep entregada por el profesor, para que si el número
+ingresado por el usuario (cada intento) no cumple alguno de los requisitos, genere una excepción.
+Habrá una excepción “Tamaño incorrecto” si no tiene 4 posiciones, “Valores inválidos” si tiene
+caracteres no numéricos y una tercera excepción “Valores repetidos” si contiene algún dígito
+repetido.
+Crea un programa copiándolo del entregado por el profesor: MasterMindExcepMain, que hace uso
+de esta clase, y provoca las excepciones propuestas para ver su funcionamiento. A continuación,
+modifícalo para que capture estas excepciones sin producir una salida abrupta del programa.Modificar la clase MasterMindExcep entregada por el profesor, para que si el número
+ingresado por el usuario (cada intento) no cumple alguno de los requisitos, genere una excepción.
+Habrá una excepción “Tamaño incorrecto” si no tiene 4 posiciones, “Valores inválidos” si tiene
+caracteres no numéricos y una tercera excepción “Valores repetidos” si contiene algún dígito
+repetido.
+Crea un programa copiándolo del entregado por el profesor: MasterMindExcepMain, que hace uso
+de esta clase, y provoca las excepciones propuestas para ver su funcionamiento. A continuación,
+modifícalo para que capture estas excepciones sin producir una salida abrupta del programa.
  */
 package com.tema12exceptions;
 
@@ -12,32 +25,23 @@ import java.util.Random;
  */
 public class MasterMindException {
 
-
     private int longitud;
     private String numeroAleatorio;
-    private String cadenaIntroducida;
-    private int numeroAciertosMismoLugar;
-    private int numeroAciertosDiferenteLugar;
+    // private String cadenaIntroducida;
+    //  private int numeroAciertosMismoLugar;
+    //  private int numeroAciertosDiferenteLugar;
 
-    public MasterMindException(int longitud, String cadenaIntroducida) {
+    public MasterMindException(int longitud) {
+
         this.longitud = longitud;
         this.numeroAleatorio = numeroAleatorio(longitud);
-        this.cadenaIntroducida = cadenaIntroducida;
-       
-        this.numeroAciertosMismoLugar = aciertosMismoLugar(cadenaIntroducida, this.numeroAleatorio);
-        this.numeroAciertosDiferenteLugar = publicaciertosDiferenteLugar(cadenaIntroducida, this.numeroAleatorio);
+
+        //this.numeroAciertosMismoLugar = aciertosMismoLugar(cadenaIntroducida, this.numeroAleatorio);
+        //this.numeroAciertosDiferenteLugar = aciertosCualquierLugar(cadenaIntroducida, this.numeroAleatorio);
     }
 
     public String getNumeroAleatorio() {
         return numeroAleatorio;
-    }
-
-    public int getNumeroAciertosMismoLugar() {
-        return numeroAciertosMismoLugar;
-    }
-
-    public int getNumeroAciertosDiferenteLugar() {
-        return numeroAciertosDiferenteLugar;
     }
 
     static public String numeroAleatorio(int longitud) {
@@ -52,30 +56,66 @@ public class MasterMindException {
         }
         return cadena.toString();
     }
+    
 
-    static public int aciertosMismoLugar(String cadenaIntroducida, String cadenaAleatoria) {
+    public int aciertosMismoLugar(String cadenaIntroducida) {
         int contador = 0;
         for (int i = 0; i < cadenaIntroducida.length(); i++) {
-            if (cadenaAleatoria.charAt(i) == cadenaIntroducida.charAt(i)) {
+            if (this.numeroAleatorio.charAt(i) == cadenaIntroducida.charAt(i)) {
                 contador++;
             }
         }
         return contador;
     }
 
-    static public int publicaciertosDiferenteLugar(String cadenaIntroducida, String cadenaAleatoria) {
+    public int aciertosCualquierLugar(String cadenaIntroducida) {
         int contador = 0;
         for (int i = 0; i < cadenaIntroducida.length(); i++) {
-            
-            for (int j = 0; j < cadenaAleatoria.length(); j++) {
-                if (cadenaIntroducida.charAt(i) == cadenaAleatoria.charAt(j)) {
+
+            for (int j = 0; j < this.numeroAleatorio.length(); j++) {
+                if (cadenaIntroducida.charAt(i) == this.numeroAleatorio.charAt(j)) {
                     contador++;
                     break;
                 }
             }
-          
+
         }
         return contador;
     }
 
+    public int getLongitud() {
+        return longitud;
+    }
+    
+    
+
 }
+
+class TamañoIncorrectoException extends Exception {
+
+    @Override
+    public String getMessage() {
+        return "Tamaño incorrecto";
+    }
+
+}
+
+class ValoresInvalidosException extends Exception {
+
+    @Override
+    public String getMessage() {
+        return "Valores invalidos";
+    }
+
+}
+
+class ValoresRepetidosException extends Exception {
+
+    @Override
+    public String getMessage() {
+        return "Valores repetidos";
+    }
+
+}
+
+

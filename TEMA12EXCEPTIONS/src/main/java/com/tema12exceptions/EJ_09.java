@@ -10,6 +10,7 @@ modifícalo para que capture estas excepciones sin producir una salida abrupta d
  */
 package com.tema12exceptions;
 
+
 import java.util.Scanner;
 
 /**
@@ -17,35 +18,112 @@ import java.util.Scanner;
  * @author silvia
  */
 public class EJ_09 {
-
-    /**
-     * @param args the command line arguments
-     */
+           public static MasterMindException mastermind;
+           
+           public static Scanner teclado = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
+        
+     
         int longitud;
         String cadenaIntroducida="0000";
+        System.out.println("Indica la longitud de la cadena: ");
+        longitud = Integer.parseInt(teclado.nextLine());
+     
+          mastermind = new MasterMindException(longitud);
 
-        do {
-            System.out.println("Indica la lomngitud de la cadena: ");
-            longitud = Integer.parseInt(teclado.nextLine());
-        } while (longitud <= 0 || longitud > 10);
-
-        MasterMindException mastermind = new MasterMindException(longitud, cadenaIntroducida);
-        for (int i = 1; i <= 10; i++) {
-
-            do {
-                System.out.println("Introduce una cadena de digitos(con la longitud seleccionada), sin repetir");
-                cadenaIntroducida = teclado.nextLine();
-                if (cadenaIntroducida.length() != longitud) {
-                    System.out.println("Intento no valido");
-                }
-            } while (cadenaIntroducida.length() != longitud);
-
+        for (int i = 1; i <= 10; i++) { 
+        boolean esCorrecto=false;    
+        do{    
+        try{
+            cadenaIntroducida=validarCadena();
+            esCorrecto=true;
             
-            System.out.println(mastermind.getNumeroAleatorio());
-            System.out.println(mastermind.getNumeroAciertosMismoLugar() + " aciertos en el lugar correcto y " + mastermind.getNumeroAciertosDiferenteLugar() + " aciertos en diferente lugar.");
+        }catch(TamañoIncorrectoException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }catch(ValoresInvalidosException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }catch(ValoresRepetidosException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+        }while(!esCorrecto);
+        
+        
+        
+        
+        
+        
+        
+        
+        
         }
     }
+    static public String validarCadena() throws TamañoIncorrectoException,ValoresInvalidosException,ValoresRepetidosException{
+           String cadenaIntroducida;
+           
+           System.out.println("Escribe un numero de "+mastermind.getLongitud()+" de longitud");
+           cadenaIntroducida=teclado.nextLine();
+          if(cadenaIntroducida.length()!=mastermind.getLongitud()){
+              throw new TamañoIncorrectoException();
+          }
+          if(!sonDigitos(cadenaIntroducida)){
+              throw new ValoresInvalidosException();
+          }
+          if(!noEstanRepetidos(cadenaIntroducida)){
+              throw new ValoresRepetidosException();
+          }
+          return cadenaIntroducida;
+    }
     
+    
+    static public boolean sonDigitos(String cadenaIntrocida){
+        for(int i=0; i<cadenaIntrocida.length();i++){
+            if(!Character.isDigit(cadenaIntrocida.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+   static public boolean noEstanRepetidos(String cadenaIntroducida){
+       for(int i=0; i<cadenaIntroducida.length()-1;i++){
+            for(int j=i+1; j<cadenaIntroducida.length();j++){
+                if(cadenaIntroducida.charAt(i)==cadenaIntroducida.charAt(j))
+                    return false;
+            }
+        }
+        return true;
+   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
